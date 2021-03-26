@@ -1,5 +1,7 @@
 # handwirehotswap
 A 3D printed, Solderless Hot Swap Socket to build keyswitch matrixes
+
+Link to the original Thingiverse Post: https://www.thingiverse.com/thing:4791318
 ## Building a Socket
 
 1. Lay the diode in the diode channel
