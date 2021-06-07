@@ -14,7 +14,7 @@ v4 brings significant improvements, including:
 - Faster to assemble / put in diode
   - Less precision required, more brute force expected
 - Better method of connecting pin and diode
-  - v3 had a nasty tendency to crush the upper switch leaf, especially considering the amount of force required to put the switch into a v3 socket.
+  - v3 had a nasty tendency to crush the upper switch pin, especially considering the amount of force required to put the switch into a v3 socket.
   - New design has an escape path for the pin if misaligned, and a better way of making electrical connection overall.
 
 ![](img/v4/1.jpg)
