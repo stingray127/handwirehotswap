@@ -1,4 +1,4 @@
-include <NopSCADlib/lib.scad>
+include <BOSL/masks.scad>
 $fn = 64;
 grid = 1.27;
 
@@ -9,115 +9,157 @@ hzExpComp = 1.15;
 pin2 = [-2*grid, 4*grid, 1.4];
 pin1 = [3*grid, 2*grid, 1.7];
 
-stem = [0, 0, 3.85];
-peg1 = [-4*grid, 0, 1.95];
-peg2 = [4*grid, 0, 1.95];
+stem = [0, 0, 3.80];
+peg1 = [-4*grid, 0, 2.1];
+peg2 = [4*grid, 0, 2.1];
 base = [11*grid, 11*grid, 3.5];
 
 diode_dia = diode_gauge_mm * 0.98;
 wire_dia = wire_gauge_mm * 1.08;
 
+diode_angle = -6;
+
+// diode_mock();
+
 difference(){
+    make_body();
+
+    left_pin_wire_slots();
+
+    right_pin_wire_slots();
+
+    diode_slot();
+}
+
+module make_body(){
     difference(){
-        union(){
-            // Main Body
-            translate([0, 0, 0]){
-                cube([base.x, base.y, base.z], center = true);
-            }
+        translate([0, 0, 0]){
+            cube([base.x, base.y, base.z], center = true);
         }
 
-        union(){
+        // Side Slots for removal
+        translate([7.75, 0, 0])
+            rotate([0, 45, 0])
+                cube([2, 20, 2], center = true);
 
-            // Switch Pins
-            translate([pin2.x, pin2.y, 0]){
-                cylinder(h=base.z*2, d=pin2[2], center = true);
-            }
+        translate([-7.75, 0, 0])
+            rotate([0, 45, 0])
+                cube([2, 20, 2], center = true);
 
-            translate([pin1.x, pin1.y, 0]){
-                    cylinder(h=base.z*2, d=pin1[2], center = true);
-            }
+        translate([0, 7.75, 0])
+            rotate([45, 0, 0])
+                cube([20, 2, 2], center = true);
 
-            // Main Stem Clamp
-            translate([stem.x, stem.y, 0]){
-                cylinder(h=base.z*2, d=stem[2], center = true);
-            }
+        translate([0, -7.75, 0])
+            rotate([45, 0, 0])
+                cube([20, 2, 2], center = true);
 
-            translate([0, -5, 0]){
-                cube([1, 10, base.z*2], center = true);
-            }
+        // Main Stem Clamp
+        translate([stem.x, stem.y, 0]){
+            cylinder(h=base.z*2, d=stem[2], center = true);
+            // translate([0, 0, base.z/2])
+            //     chamfer_hole_mask(d=stem[2]);
+            // translate([0, 0, -base.z/2])
+            //     rotate([180, 0, 0])
+            //         chamfer_hole_mask(d=stem[2], chamfer=0.5);
+        }
 
-            // PCB Mount Pegs
-            translate([peg1.x, peg1.y, 0]){
-                cylinder(h=base.z*2, d=peg1[2], center = true);
-            }
+        translate([0, -5, 0]){
+            cube([3, 10, base.z*2], center = true);
+        }
 
-            translate([peg2.x, peg2.y, 0]){
-                cylinder(h=base.z*2, d=peg2[2], center = true);
-            }
+        // PCB Mount Pegs
+        translate([peg1.x, peg1.y, 0]){
+            cylinder(h=base.z*2, d=peg1[2], center = true);
+            translate([0, 0, base.z/2])
+                chamfer_hole_mask(d=peg1[2]);
+            translate([0, 0, -base.z/2])
+                rotate([180, 0, 0])
+                    chamfer_hole_mask(d=peg1[2], chamfer=0.5);
+        }
 
-            // Side Slots for removal
-            translate([7.75, 0, 0])
-                rotate([0, 45, 0])
-                    cube([2, 20, 2], center = true);
+        translate([peg2.x, peg2.y, 0]){
+            cylinder(h=base.z*2, d=peg2[2], center = true);
+            translate([0, 0, base.z/2])
+                chamfer_hole_mask(d=peg2[2]);
+            translate([0, 0, -base.z/2])
+                rotate([180, 0, 0])
+                    chamfer_hole_mask(d=peg2[2], chamfer=0.5);
+        }
 
-            translate([-7.75, 0, 0])
-                rotate([0, 45, 0])
-                    cube([2, 20, 2], center = true);
+        // Switch Pins
+        translate([pin2.x, pin2.y, 0]){
+            cylinder(h=base.z*2, d=pin2[2], center = true);
+            translate([0, 0, base.z/2])
+                chamfer_hole_mask(d=pin2[2]);
+            translate([0, 0, -base.z/2])
+                rotate([180, 0, 0])
+                    chamfer_hole_mask(d=pin2[2], chamfer=0.25);
+        }
 
-            translate([0, 7.75, 0])
-                rotate([45, 0, 0])
-                    cube([20, 2, 2], center = true);
-
-            translate([0, -7.75, 0])
-                rotate([45, 0, 0])
-                    cube([20, 2, 2], center = true);
-
+        translate([pin1.x, pin1.y, 0]){
+            cylinder(h=base.z*2, d=pin1[2], center = true);
+            translate([0, 0, base.z/2])
+                chamfer_hole_mask(d=pin1[2]);
+            translate([0, 0, -base.z/2])
+                rotate([180, 0, 0])
+                    chamfer_hole_mask(d=pin1[2], chamfer=0.25);
         }
 
     }
+}
 
-    // Parametrically Set
-    union(){
-        // Bottom Face Diode Pin Slot
-        translate([pin2.x-2*grid, pin2.y - pin2[2]/8*2.5, -base.z/2]){
-            cube([4*grid, diode_dia * hzExpComp, diode_dia*4], center = true);
-        }
+module left_pin_wire_slots(){
+    // Diode Pin Wire Channels
+    translate([-2*grid, 5*grid, 0])
+        cube([1.5*diode_dia, 3, base.z*2], center = true);
 
-        // Top Face Diode Wire Channel
-        translate([0, pin2.y + pin2[2]/8*2.5, base.z/2]){
-            cube([1.5*base.x, diode_dia, diode_dia*5], center = true);
-            cube([1.5*base.x, 2*diode_dia, diode_dia*1.5], center = true);
-        }
+    translate([-4*grid, 4.5*grid, -base.z/2])
+        cube([5, 1.25*diode_dia, 3*diode_dia], center = true);
 
-        // Bottom Face Column Wire Slot
-        translate([-2*grid, pin1.y+pin1[2]/8, -base.z/2]){
-            cube([1.5*base.x, wire_dia * hzExpComp, wire_dia*4.5], center = true);
-        }
+    translate([-5.25*grid, 4.5*grid, 0])
+        cube([1, 1.25*diode_dia, base.z*2], center = true);
 
-        // Row Wire Channel
-        translate([0, -4*grid, base.z/2]){
-            cube([1.5*base.x, wire_dia, wire_dia*5.5], center = true);
-        }
-    }
+    translate([0, -4*grid, base.z/2])
+        cube([20, wire_dia, base.z], center = true);
+    
+    translate([-5.25*grid, -4*grid, 0])
+        cube([1, wire_dia, base.z*2], center = true);
+    
+    translate([-4*grid, -4*grid, -base.z/2])
+        cube([4, wire_dia, 3*diode_dia], center = true);
 
-    // Manually Set
+}
+
+module right_pin_wire_slots(){
+    translate([pin1.x, 4*grid, -base.z/2])
+        cube([1.2*wire_dia, 4*grid, 3*wire_dia], center = true);
+    translate([pin1.x, 5.5*grid, 0])
+        cube([1.2*wire_dia, 2, base.z], center = true);
+}
+
+module diode_slot(){
     union(){
         // Diode Body + Other Leg
-        diode_angle = -10;
-        translate([-2*grid-0.28, 1*grid, base.z/2])
-            rotate([0, 0, diode_angle])
-                union(){
-                    rotate([90, 0, 0])
-                        cylinder(h=3.2, d=2, center = true);
-
-                    cube([diode_dia, 6.5*grid, diode_dia*3], center = true);
-
-                    translate([0, -6.5*grid/2, 0])
-                        cylinder(h = 10, d = 2.5*diode_dia, center = true);
-                }
-
-        translate([pin2.x-2.5*grid, -2*grid-0.25, -base.z/2]){
-            cube([3.5*grid, diode_dia * hzExpComp, diode_dia*4], center = true);
-        }
+        translate([-2.45*grid, -1.5*grid, -0.75])
+            rotate([0, 0, diode_angle]){
+                cube([2.0, 3.5, 2.1], center = true);
+            }
+        translate([-2.45*grid, -1.5*grid, -base.z/2])
+            rotate([0, 0, diode_angle]){
+                translate([0, 2, 0])
+                    cube([diode_dia, 11, 2.5], center = true);
+                translate([0, -3.25, 0])
+                    cylinder(h=2.5, d=1.75, center = true);
+            }
     }
+}
+
+module diode_mock(){
+    translate([-2.45*grid, -1.5*grid, -0.75])
+        rotate([0, 0, diode_angle])
+            rotate([90, 0, 0]){
+                cylinder(h=3.2, d=2, center = true);
+                cylinder(h=100, d=diode_dia, center = true);
+            }
 }
