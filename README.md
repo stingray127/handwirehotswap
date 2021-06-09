@@ -3,7 +3,9 @@ A 3D printed, Solderless Hot Swap Socket to build keyswitch matrixes
 
 Link to the original Thingiverse Post: https://www.thingiverse.com/thing:4791318
 
-**v4 is in development**
+## v4 is out!
+
+**Orientation of the STL file is not correct. Print this with diode slot facing up**
 
 v4 brings significant improvements, including:
 - Easier to print
@@ -17,4 +19,4 @@ v4 brings significant improvements, including:
   - v3 had a nasty tendency to crush the upper switch pin, especially considering the amount of force required to put the switch into a v3 socket.
   - New design has an escape path for the pin if misaligned, and a better way of making electrical connection overall.
 
-![](img/v4/1.jpg)
+![](Socket/img/17.jpg)
