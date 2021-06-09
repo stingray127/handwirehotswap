@@ -42,9 +42,9 @@ Using a fingernail, force the other diode leg into the row wire channel
 
 ![](img/12.jpg)
 
-Using the screwdriver, wrap the wire 360 degrees around the shaft. Its okay to translate while rotating to more easily make the full rotation
-
 ![](img/13.jpg)
+
+Using the screwdriver, wrap the wire 360 degrees around the shaft. Its okay to translate while rotating to more easily make the full rotation
 
 ![](img/14.jpg)
 
