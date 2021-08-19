@@ -1,4 +1,3 @@
-include <BOSL/masks.scad>
 $fn = 64;
 grid = 1.27;
 
@@ -15,7 +14,7 @@ peg2 = [4*grid, 0, 2.1];
 base = [11*grid, 11*grid, 3.5];
 
 diode_dia = diode_gauge_mm * 0.98;
-wire_dia = wire_gauge_mm * 1.08;
+wire_dia = wire_gauge_mm * 1.1;
 
 diode_angle = -6;
 
@@ -57,11 +56,6 @@ module make_body(){
         // Main Stem Clamp
         translate([stem.x, stem.y, 0]){
             cylinder(h=base.z*2, d=stem[2], center = true);
-            // translate([0, 0, base.z/2])
-            //     chamfer_hole_mask(d=stem[2]);
-            // translate([0, 0, -base.z/2])
-            //     rotate([180, 0, 0])
-            //         chamfer_hole_mask(d=stem[2], chamfer=0.5);
         }
 
         translate([0, -5, 0]){
@@ -71,39 +65,19 @@ module make_body(){
         // PCB Mount Pegs
         translate([peg1.x, peg1.y, 0]){
             cylinder(h=base.z*2, d=peg1[2], center = true);
-            translate([0, 0, base.z/2])
-                chamfer_hole_mask(d=peg1[2]);
-            translate([0, 0, -base.z/2])
-                rotate([180, 0, 0])
-                    chamfer_hole_mask(d=peg1[2], chamfer=0.5);
         }
 
         translate([peg2.x, peg2.y, 0]){
             cylinder(h=base.z*2, d=peg2[2], center = true);
-            translate([0, 0, base.z/2])
-                chamfer_hole_mask(d=peg2[2]);
-            translate([0, 0, -base.z/2])
-                rotate([180, 0, 0])
-                    chamfer_hole_mask(d=peg2[2], chamfer=0.5);
         }
 
         // Switch Pins
         translate([pin2.x, pin2.y, 0]){
             cylinder(h=base.z*2, d=pin2[2], center = true);
-            translate([0, 0, base.z/2])
-                chamfer_hole_mask(d=pin2[2]);
-            translate([0, 0, -base.z/2])
-                rotate([180, 0, 0])
-                    chamfer_hole_mask(d=pin2[2], chamfer=0.25);
         }
 
         translate([pin1.x, pin1.y, 0]){
             cylinder(h=base.z*2, d=pin1[2], center = true);
-            translate([0, 0, base.z/2])
-                chamfer_hole_mask(d=pin1[2]);
-            translate([0, 0, -base.z/2])
-                rotate([180, 0, 0])
-                    chamfer_hole_mask(d=pin1[2], chamfer=0.25);
         }
 
     }
