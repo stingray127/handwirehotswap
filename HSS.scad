@@ -3,7 +3,6 @@ grid = 1.27;
 
 diode_gauge_mm = 0.508;
 wire_gauge_mm = 0.559;
-hzExpComp = 1.15;
 
 pin2 = [-2*grid, 4*grid, 1.4];
 pin1 = [3*grid, 2*grid, 1.7];
