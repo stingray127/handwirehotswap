@@ -26,6 +26,7 @@ v4 brings significant improvements, including:
 ## Other hardware notes
 
 Diode Legs: 25 SWG
+
 Solid Core Wire: 24 SWG
 
 24 SWG is ~0.558mm diameter, anything around .5mm dia should work fine.
