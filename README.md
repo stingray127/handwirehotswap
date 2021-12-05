@@ -23,4 +23,11 @@ v4 brings significant improvements, including:
 
 ![](Socket/img/17.jpg)
 
-I need a new phone lol this camera is atrocious
+## Other hardware notes
+
+Diode Legs: 25 SWG
+Solid Core Wire: 24 SWG
+
+24 SWG is ~0.558mm diameter, anything around .5mm dia should work fine.
+
+If thicker solid core wire is used, it is advised to go into the code and adjust the size of the row wire channel and column pin hole. Thingiverse Customizer might also work but I have not tested it much.
