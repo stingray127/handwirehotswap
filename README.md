@@ -25,7 +25,17 @@ v4 brings significant improvements, including:
 
 ## Other hardware notes
 
-Diode Legs: 25 SWG
+### Diodes:
+
+**You should purchase DO-35 package 1N4148 diodes with long leads.**
+
+The package type, DO-35, is the most important requirement as this is required to fit the diode in the socket, 1N4148s are reasonably low voltage signal diodes with a 0.6-1.0v forward voltage.
+
+Any diode that is through hole, axial lead, with a body 4mm long and 2mm in diameter and leads that are 25 SWG or 0.5-0.6 mm in diameter and 25.4mm or 1 inch long should work.
+
+Shorter lead diodes will work, but will not be embedded in the socket as permanently.
+
+### Hookup wire:
 
 Solid Core Wire: 24 SWG
 
